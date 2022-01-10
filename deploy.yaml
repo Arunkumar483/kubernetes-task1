@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website3
+spec:
+  selector:
+    matchLabels:
+      run: website3
+  template:
+    metadata:
+      labels:
+        run: website3
+    spec:
+      containers:
+      - name: website3
+        image: gmarun2000/nodeappforjen
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: website3
+  labels:
+    run: website3
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    run: website3
